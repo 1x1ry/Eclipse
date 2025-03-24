@@ -528,4 +528,7 @@ end
 
 Library.ToggleKeybind = Options.MenuKeybind
 
+Library:AddDraggableButton("Send Sticker", function()
+    Library:Notify({Title = "woa", Description = "sdadadad"})
+end)
 return Window, Tabs, Toggles, Options 
