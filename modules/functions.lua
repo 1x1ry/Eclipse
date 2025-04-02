@@ -10,15 +10,7 @@ local Services, Library = {}, {
     end 
 })
 
-local Players = Services.Players
-local UserInputService = Services.UserInputService
-local Stats = Services.Stats
-
-local localPlayer = Players.LocalPlayer 
-local Mouse = UserInputService:GetMouseLocation()
-local Camera = workspace.CurrentCamera 
-
-function Library:newInstance(Type : string, Properties : table, Index : string)
+function Library:Instance(Type : string, Properties : table, Index : string)
     local newInstance = Instance.new(Type)
 
     for key, value in next Properties do 
@@ -28,7 +20,7 @@ function Library:newInstance(Type : string, Properties : table, Index : string)
     return newInstance 
 end 
 
-function Library:newDrawing(Type : string, Properties : table, Index : string)
+function Library:Drawing(Type : string, Properties : table, Index : string)
     local newDrawing = Drawing.new(Type)
 
     for key, value in next Properties do 
@@ -38,13 +30,9 @@ function Library:newDrawing(Type : string, Properties : table, Index : string)
     return newDrawing 
 end 
 
-function Library:newSignal(Signal, Config : table)
-    local Connection = Signal:Connect(Config.Function or Config.Callback or Config.Func)
-
-    self.Connections[Config.Index or Config.Key or Config.Name or #self.Connections] = Connection 
-
-    return Connection 
-end 
+function Library:Connection(Signal, Callback, Index)
+    self.Connections
+end
 
 function Library:buildFolderTree(Config : table)
     assert(makefolder, "Executor doesn't support makefolder")
@@ -91,7 +79,9 @@ function Library:Unload()
 
     for _, v in next, self.unloadFunctions do 
         v()
-    end; cleardrawingcache()
+    end
+    
+    cleardrawingcache()
 
     Library = nil 
 end 
